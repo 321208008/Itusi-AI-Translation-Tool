@@ -1,6 +1,7 @@
 'use client';
 
 import { Languages } from 'lucide-react';
+import { Github, Twitter, Globe } from 'lucide-react';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { LanguageToggle } from '@/components/LanguageToggle';
 import { Settings } from '@/components/Settings';
@@ -34,23 +35,39 @@ export default function Home() {
 
       <footer className="border-t mt-auto">
         <div className="container mx-auto px-4 py-6">
-          <div className="flex justify-center items-center gap-6 text-sm text-muted-foreground">
-            <a
-              href="https://github.com/321208008"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors"
-            >
-              GitHub
-            </a>
-            <a
-              href="https://twitter.com/zyailive"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors"
-            >
-              Twitter
-            </a>
+          <div className="flex flex-col items-center gap-4">
+            <div className="flex justify-center items-center gap-6">
+              <a
+                href="https://github.com/321208008"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <Github className="h-4 w-4" />
+                GitHub
+              </a>
+              <a
+                href="https://twitter.com/zyailive"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <Twitter className="h-4 w-4" />
+                Twitter
+              </a>
+              <a
+                href="https://itusi.cn"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <Globe className="h-4 w-4" />
+                Itusi
+              </a>
+            </div>
+            <div className="text-sm text-muted-foreground">
+              &copy; {new Date().getFullYear()} AI Translation Tool. All rights reserved.
+            </div>
           </div>
         </div>
       </footer>

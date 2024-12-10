@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'AI Translation Tool',
-  description: 'Powerful translation tool powered by DeepSeek and Gemini',
+  description: 'Powerful translation tool powered by DeepSeek',
 };
 
 export default function RootLayout({

@@ -19,7 +19,7 @@ export function TranslationArea() {
   
   const { provider, apiKeys } = useStore();
   const { toast } = useToast();
-  const { t } = useTranslation();
+  const { t, formatMessage } = useTranslation();
 
   const handleTranslate = async () => {
     if (!sourceText.trim()) return;
@@ -28,7 +28,7 @@ export function TranslationArea() {
     if (!apiKey) {
       toast({
         title: t('errors.apiKeyRequired'),
-        description: t('errors.apiKeyMessage', {
+        description: formatMessage('errors.apiKeyMessage', {
           provider: 'DeepSeek'
         }),
         variant: 'destructive',
@@ -61,7 +61,7 @@ export function TranslationArea() {
     } catch (error) {
       toast({
         title: t('errors.translationError'),
-        description: t('errors.failedTranslation'),
+        description: formatMessage('errors.failedTranslation'),
         variant: 'destructive',
       });
     } finally {
@@ -73,7 +73,7 @@ export function TranslationArea() {
     await navigator.clipboard.writeText(translatedText);
     toast({
       title: t('translation.copied'),
-      description: t('translation.copyMessage'),
+      description: formatMessage('translation.copyMessage'),
     });
   };
 

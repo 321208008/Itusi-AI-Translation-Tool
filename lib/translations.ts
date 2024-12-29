@@ -3,9 +3,13 @@ export const translations = {
     title: 'AI Translation Tool',
     settings: {
       title: 'Settings',
-      provider: 'Provider',
+      provider: 'Translation Provider',
+      apiKey: 'API Key',
       deepseekKey: 'DeepSeek API Key',
-      apiKey: 'Enter your API key',
+      qwenKey: 'Qwen API Key',
+      useDefaultApi: 'Use Default API',
+      apiKeyDescription: 'Enter your API key or use the default one',
+      apiKeyPlaceholder: 'Enter your API key'
     },
     translation: {
       from: 'From:',
@@ -31,9 +35,13 @@ export const translations = {
     title: 'AI翻译工具',
     settings: {
       title: '设置',
-      provider: '提供商',
-      deepseekKey: 'DeepSeek API密钥',
-      apiKey: '输入你的API密钥',
+      provider: '翻译提供商',
+      apiKey: 'API 密钥',
+      deepseekKey: 'DeepSeek API 密钥',
+      qwenKey: 'Qwen API 密钥',
+      useDefaultApi: '使用默认 API',
+      apiKeyDescription: '输入您的 API 密钥或使用默认密钥',
+      apiKeyPlaceholder: '输入您的 API 密钥'
     },
     translation: {
       from: '从：',
@@ -47,7 +55,7 @@ export const translations = {
     },
     errors: {
       apiKeyRequired: '需要API密钥',
-      apiKeyMessage: '请在设置中填写{provider}的API密钥',
+      apiKeyMessage: '请在设置中设置您的{provider} API密钥',
       translationError: '翻译错误',
       failedTranslation: '翻译失败'
     },

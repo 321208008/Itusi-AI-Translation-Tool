@@ -4,26 +4,30 @@ import { Languages } from 'lucide-react';
 import { Github, Twitter, Globe } from 'lucide-react';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { LanguageToggle } from '@/components/LanguageToggle';
-import { Settings } from '@/components/Settings';
 import { TranslationArea } from '@/components/TranslationArea';
 import { ApiKeyInput } from '@/components/ApiKeyInput';
 import { useTranslation } from '@/lib/useTranslation';
+import Image from 'next/image';
 
 export default function Home() {
   const { t } = useTranslation();
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
+      <div className="bg-blue-50 dark:bg-blue-950 py-2">
+        <div className="container mx-auto px-4 text-center text-sm text-blue-700 dark:text-blue-300">
+          温馨提示：默认API可免费使用，平台不会保存任何API信息，请放心！
+        </div>
+      </div>
       <header className="border-b">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Languages className="h-6 w-6" />
+            <Image src="/logo.svg" alt="Logo" width={24} height={24} className="dark:invert" />
             <h1 className="text-xl font-semibold">{t('title')}</h1>
           </div>
           <div className="flex items-center gap-2">
             <LanguageToggle />
             <ThemeToggle />
-            <Settings />
           </div>
         </div>
       </header>

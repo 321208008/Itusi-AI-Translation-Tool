@@ -1,8 +1,8 @@
 'use client';
 
-import { useStore } from '@/lib/store';
 import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { Switch } from '@/components/ui/switch';
 import {
   Select,
   SelectContent,
@@ -10,42 +10,74 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useStore } from '@/lib/store';
 import { useTranslation } from '@/lib/useTranslation';
+import { Card, CardContent } from '@/components/ui/card';
+import type { TranslationProvider } from '@/lib/types';
+
+const providers = [
+  { value: 'qianwen', label: 'Qwen' },
+  { value: 'deepseek', label: 'DeepSeek' },
+] as const;
 
 export function ApiKeyInput() {
-  const { provider, setProvider, apiKeys, setApiKeys } = useStore();
   const { t } = useTranslation();
+  const { apiKeys, setApiKeys, useDefaultApi, setUseDefaultApi, provider, setProvider } = useStore();
+
+  const handleApiKeyChange = (value: string) => {
+    setApiKeys({
+      [provider]: value,
+    });
+  };
 
   return (
-    <Card className="mb-8">
-      <CardHeader className="pb-4">
-        <CardTitle className="text-lg font-medium">{t('settings.title')}</CardTitle>
-      </CardHeader>
-      <CardContent className="grid gap-4 sm:grid-cols-2">
+    <Card className="w-full max-w-5xl mx-auto mb-6">
+      <CardContent className="pt-6 space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 border rounded-lg bg-muted/50">
+          <div className="space-y-0.5">
+            <Label className="text-base font-medium">{t('settings.useDefaultApi')}</Label>
+            <div className="text-sm text-muted-foreground">
+              {t('settings.apiKeyDescription')}
+            </div>
+          </div>
+          <Switch
+            id="use-default-api"
+            checked={useDefaultApi}
+            onCheckedChange={setUseDefaultApi}
+            className="ml-auto"
+          />
+        </div>
+
         <div className="space-y-2">
-          <label className="text-sm font-medium">{t('settings.provider')}</label>
-          <Select value={provider} onValueChange={setProvider}>
+          <Label className="text-base font-medium">{t('settings.provider')}</Label>
+          <Select value={provider} onValueChange={(value) => setProvider(value as TranslationProvider)}>
             <SelectTrigger>
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="deepseek">DeepSeek</SelectItem>
+              {providers.map((item) => (
+                <SelectItem key={item.value} value={item.value}>
+                  {item.label}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
-        <div className="space-y-2">
-          <label className="text-sm font-medium">
-            {t('settings.deepseekKey')}
-          </label>
-          <Input
-            type="password"
-            value={apiKeys[provider]}
-            onChange={(e) =>
-              setApiKeys({ ...apiKeys, [provider]: e.target.value })
-            }
-            placeholder={`${t('settings.apiKey')}`}
-          />
-        </div>
+        
+        {!useDefaultApi && (
+          <div className="space-y-2">
+            <Label className="text-base font-medium">
+              {provider === 'deepseek' ? t('settings.deepseekKey') : t('settings.qwenKey')}
+            </Label>
+            <Input
+              type="password"
+              placeholder={t('settings.apiKeyPlaceholder')}
+              value={apiKeys[provider]}
+              onChange={(e) => handleApiKeyChange(e.target.value)}
+              className="w-full"
+            />
+          </div>
+        )}
       </CardContent>
     </Card>
   );

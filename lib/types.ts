@@ -4,7 +4,7 @@ export type Language = {
   nativeName: string;
 };
 
-export type TranslationProvider = 'deepseek';
+export type TranslationProvider = 'deepseek' | 'qianwen';
 
 export type TranslationRequest = {
   text: string;
@@ -13,8 +13,14 @@ export type TranslationRequest = {
   provider: TranslationProvider;
 };
 
-export type TranslationResponse = {
+export interface ApiKeys {
+  deepseek: string;
+  qianwen: string;
+}
+
+export interface TranslationResponse {
   translatedText: string;
-  detectedLanguage?: string;
   error?: string;
-};
+}
+
+export type CustomFetch = (url: string, init?: RequestInit & { agent?: any }) => Promise<Response>;

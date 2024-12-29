@@ -9,6 +9,7 @@ import { useStore } from '@/lib/store';
 import { useToast } from '@/hooks/use-toast';
 import { useTranslation } from '@/lib/useTranslation';
 import { LanguageSelect } from './LanguageSelect';
+import { config } from '@/lib/config';
 
 export function TranslationArea() {
   const [sourceText, setSourceText] = useState('');
@@ -17,22 +18,26 @@ export function TranslationArea() {
   const [targetLanguage, setTargetLanguage] = useState('en');
   const [isTranslating, setIsTranslating] = useState(false);
   
-  const { provider, apiKeys } = useStore();
+  const { provider, apiKeys, useDefaultApi } = useStore();
   const { toast } = useToast();
   const { t, formatMessage } = useTranslation();
 
   const handleTranslate = async () => {
     if (!sourceText.trim()) return;
     
-    const apiKey = apiKeys[provider];
+    const apiKey = useDefaultApi 
+      ? config.defaultApiKeys[provider]
+      : apiKeys[provider];
+
     if (!apiKey) {
       toast({
         title: t('errors.apiKeyRequired'),
         description: formatMessage('errors.apiKeyMessage', {
-          provider: 'DeepSeek'
+          provider: provider === 'deepseek' ? 'DeepSeek' : 'Qwen'
         }),
         variant: 'destructive',
       })
+      return;
     }
     
     setIsTranslating(true);
